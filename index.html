@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- head 裡頭不會顯示，是相關資訊 -->
+
+<head>
+    <!-- 正確編碼 -->
+    <meta charset="utf-8">
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 細節描述 -->
+    <meta name="detail" content="國際廢話線前端圖表">
+    <!-- 作者 -->
+    <meta name="author" content="originated by 吳君孝(Shaw Wu), revised by StewardTsou">
+    <!-- Css 主流框架 bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Js 插件 Google Chart 載入 -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--讀入各種圖表 (只能載一次 by 吳君孝(Shaw Wu)) -->
+    <script type="text/javascript">
+    google.charts.load('current', {
+        'packages': ['corechart', "calendar", "orgchart", 'treemap', 'table']
+    });
+    </script>
+    <!-- 使用的 Css -->
+    <!-- <link href="basic.css" type="text/css" rel="stylesheet"> -->
+    <!-- inline Css -->
+    <style>
+    /* 背景顏色 */
+    body {
+        background-color: #ffebcd;
+    }
+    /* RWD by 吳君孝 */
+    .header,
+    .main,
+    .footer {
+        padding-right: 30px;
+        padding-left: 50px;
+    }
+    /* 標題 */
+    
+    #murmur {
+        font-size: 40px;
+    }
+    </style>
+    <!-- 顯示在頁籤上的東東 -->
+    <title> 國際廢話線前端圖表 </title>
+</head>
+<!-- head 裡頭不會顯示，是相關資訊 -->
+<!-- body 是上菜區 -->
+
+<body>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <!-- <li role="presentation"><a href="about.html">關於</a></li></li> -->
+                </ul>
+            </nav>
+            <!-- 導覽列標題 -->
+            <h3 class="text-muted"></h3>
+        </div>
+        <div class="jumbotron">
+            <!-- 大圖像窗標題 -->
+            <h1 id="murmur">Murmurline</h1>
+            <!-- 大圖像窗連結們 -->
+            <a href="https://developers.google.com/chart/" target="_target">Google Charts</a></br>
+            <br/>
+            <!-- 原始講師介紹 -->
+            <a href="https://tw.linkedin.com/in/shaw-wu-887489a8" target="_target">原始講師介紹 shaldrem@gmail.com</a></br>
+            <a href="https://www.facebook.com/shaw.wu" target="_target">原始講師臉書</a></br>
+            <a href="https://www.facebook.com/beehivedt/" target="_target">原始講師的蜂巢數據科技臉書按讚</a></br>
+            <a href="https://www.facebook.com/beehivedt/" target="_target">原始講師的蜂巢數據科技臉書</a></br>
+            <a href="https://www.facebook.com/groups/beehivedatagroup/" target="_target">原始講師的臉書社團 Beehive Data Group </a></br>
+            <!-- 撈取資料來源 -->
+            <br/>
+            <a href="https://www.facebook.com/murmurline/" target="_target">本文撈取資料來源</a></br>
+        </div>
+        <!-- 第一張圖：載入圓餅圖 piechart source code -->
+        <!-- 這篇開始直接複製自 Google chart 再做修改 -->
+        <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                // 放入自己的資料集，先放描述  
+                ['類別', '次數'],
+                // 再放資料
+                ['讚與各類心情', 3306],
+                ['第一層與第二層留言', 370],
+                ['分享', 134]
+            ]);
+            var options = {
+                // 放入自己的標題
+                title: '互動比例',
+                legend: 'none',
+                pieSliceText: 'label',
+                slices: {
+                    1: {
+                        offset: 0.2
+                    },
+                    2: {
+                        offset: 0.3
+                    }
+                }
+            };
+            // 這邊的 .getElementById 的名字 id 要沿用到下方
+            var chart = new google.visualization.PieChart(document.getElementById('piechart_mur'));
+            chart.draw(data, options);
+        }
+        </script>
+        <!-- 這裡結束 Google chart -->
+        <!-- 開始上菜-->
+        <div class="row main">
+            <hr>
+            <div class="col-lg-12">
+                <!-- 這是 bootstrap 全幅 -->
+                <!-- 左上標題-->
+                <h4> 各類互動的比例 </h4>
+                <!-- 放上互動圖表-->
+                <!-- 上方的 .getElementById 的名字 id 要沿用到這裡 -->
+                <div id="piechart_mur" style="width: 800px; height: 500px">
+                </div>
+                <!-- 粗體評論區塊-->
+                <h4><b> 互動：按讚、留言與分享數比例</b></h4>
+                <div class="comment_1">
+                    <p>自串燒文來，貼文共 30 篇，貼文點擊次數 10,555 次(有一單篇爆紅 4,015 次)，其中各類型的互動反應中，按讚與表達心情 3,306 次約占互動中九成 (86.8%)，留言 370 則約占剩下的一成 (9.7%)，其中一半為直播對話。最後，分享數 134 次中，特定單篇爆紅就占了 88 次，剩下來的分享數多由特定鐵粉貢獻。</p>
+                </div>
+            </div>
+            <!-- 這是分隔線 -->
+            <hr>
+        </div>
+        <!-- 第二張圖：載入折線圖 corechart source code -->
+        <!-- 這篇開始直接複製自 Google chart 再做修改 -->
+        <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                // 放入自己的資料集，先放描述     
+                ['Date', '貼文點擊次數 (Click Rate)'],
+                // 再放資料
+                ['2016/9/27', 370],
+                ['2016/10/4', 337],
+                ['2016/10/5', 181],
+                ['2016/10/6', 141],
+                ['2016/10/18', 118],
+                ['2016/10/21', 365],
+                ['2016/10/28', 108],
+                ['2016/10/29', 230],
+                ['2016/10/31', 331],
+                ['2016/11/1', 74],
+                ['2016/11/3', 77],
+                ['2016/11/5', 99],
+                ['2016/11/6', 335],
+                ['2016/11/8', 61],
+                ['2016/11/9', 415],
+                ['2016/11/10', 169],
+                ['2016/11/11', 257],
+                ['2016/11/12', 101],
+                ['2016/11/13', 266],
+                ['2016/11/14', 307],
+                ['2016/11/17', 734],
+                ['2016/11/18', 198],
+            ]);
+
+            var options = {
+                // 放入自己的標題
+                title: '興趣程度',
+                hAxis: {
+                    // 放入自己的橫軸
+                    title: '日期',
+                    titleTextStyle: {
+                        color: '#333'
+                    }
+                },
+                // 縱軸為數字
+                vAxis: {
+                    minValue: 0
+                },
+                aggregationTarget: 'category'
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('corechart_mur'));
+            // 這邊的 .getElementById 的名字 id 要沿用到下方
+            chart.draw(data, options);
+        }
+        </script>
+        <!-- 這裡結束 Google chart -->
+        <div class="row main">
+            <hr>
+            <div class="col-lg-12">
+                <!-- 左上標題-->
+                <h4> 從貼文點擊次數看熱度 </h4>
+                <!-- 放上互動圖表-->
+                <!-- 上方的 .getElementById 的名字 id 要沿用到這裡 -->
+                <div id="corechart_mur" style="width: 800px; height: 500px"></div>
+                <!-- 粗體評論區塊-->
+                <h4><b> 熱度觀察 </b></h4>
+                <div class="comment_2" role="hotspot">
+                    <p> 貼文點擊次數為 10,555 次，去除特殊變異數：9/22 串燒文 4,015 次，10/15 「goo.gl 是病毒?」 1,374 次，並將一天兩次 的 10/29, 10/31, 11/6 , 11/12, 11/14 同一天發兩次貼文的點擊合併計算 (通常包含半夜點擊較少的直播)。由圖表可發現些許低點，首先去除雜訊，11/1~11/5 為直播貼文，本來就比較少人會點進去。11/8 是更換封面照片。11/12 也有兩次直播，且都在近午夜時播送 (清晨 1 點與半夜 11 點)。 10/18 圖像貼文應為看不懂所致，10/28 則是梗太爛且表現不夠好，10/6 的貼文也沒什麼梗。 高點部分，11/17 的圖像貼文高點是因為一諷刺之陷阱文，因此騙了很多人點進去，但也造成一人或因惱羞？而隱藏了所有貼文。
+                    </p>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- 底部與原始講師資訊 -->
+        <footer class="footer">
+            <p>&copy; 2016 Beehive Data Group. 講師：吳君孝 shaldrem@gmail.com</p>
+        </footer>
+    </div>
+</body>
+<!-- body 是上菜區 -->
+
+</html>
+<!-- 結束 -->
